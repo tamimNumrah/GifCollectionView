@@ -1,6 +1,0 @@
-language: swift
-
-osx_image: xcode12.5
-
-script:
-  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project GifCollectionView.xcodeproj -scheme GifCollectionView -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
