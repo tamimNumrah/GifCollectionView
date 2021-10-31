@@ -3,7 +3,7 @@
 
 Drop in Gif Collection View. Uses Tenor as default GIFs provider. 
 
-![Demo](https://github.com/tamimNumrah/GifCollectionView/blob/f9b7f8db91230edea8947e6143c18f7df2595c0d/demo.gif)
+![Demo](https://github.com/tamimNumrah/GifCollectionView/blob/main/demo.gif)
 
 
 ## Requirements
