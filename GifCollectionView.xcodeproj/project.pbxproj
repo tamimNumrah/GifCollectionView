@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24AAF3E23CAFB85A7DEBA4A4 /* Pods_GifCollectionViewExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074A3FDB744ABE58549872BC /* Pods_GifCollectionViewExamples.framework */; };
 		7BF15072D1D9186235CF512C /* Pods_GifCollectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B25608AE181716B16EF40AFB /* Pods_GifCollectionView.framework */; };
 		83802F846020663E27B57708 /* Pods_GifCollectionView_GifCollectionViewTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB0F730B04CEEC693171AF9 /* Pods_GifCollectionView_GifCollectionViewTests.framework */; };
 		E74AD83C272B688D0007AF30 /* GifCollectionView.docc in Sources */ = {isa = PBXBuildFile; fileRef = E74AD83B272B688D0007AF30 /* GifCollectionView.docc */; };
@@ -21,6 +20,9 @@
 		E74AD861272B69840007AF30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E74AD860272B69840007AF30 /* Assets.xcassets */; };
 		E74AD864272B69840007AF30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E74AD862272B69840007AF30 /* LaunchScreen.storyboard */; };
 		E74AD86A272B69C30007AF30 /* GifCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74AD869272B69C30007AF30 /* GifCollectionView.swift */; };
+		E7953B19272E832A00477868 /* Pods_GifCollectionViewExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074A3FDB744ABE58549872BC /* Pods_GifCollectionViewExamples.framework */; };
+		E7953B1C272E833100477868 /* GifCollectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E74AD837272B688D0007AF30 /* GifCollectionView.framework */; };
+		E7953B1D272E833100477868 /* GifCollectionView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E74AD837272B688D0007AF30 /* GifCollectionView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7A39297272D7D1C00A2496F /* GifCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A39296272D7D1C00A2496F /* GifCollectionViewCell.swift */; };
 		E7A39299272D7DB600A2496F /* GifCollectionViewCustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A39298272D7DB600A2496F /* GifCollectionViewCustomLayout.swift */; };
 		E7A3929B272D809000A2496F /* GifCollectionViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3929A272D809000A2496F /* GifCollectionViewProtocols.swift */; };
@@ -39,7 +41,28 @@
 			remoteGlobalIDString = E74AD836272B688D0007AF30;
 			remoteInfo = GifCollectionView;
 		};
+		E7953B1E272E833100477868 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E74AD82E272B688D0007AF30 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E74AD836272B688D0007AF30;
+			remoteInfo = GifCollectionView;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E7953B20272E833100477868 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E7953B1D272E833100477868 /* GifCollectionView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		074A3FDB744ABE58549872BC /* Pods_GifCollectionViewExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GifCollectionViewExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,7 +120,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24AAF3E23CAFB85A7DEBA4A4 /* Pods_GifCollectionViewExamples.framework in Frameworks */,
+				E7953B1C272E833100477868 /* GifCollectionView.framework in Frameworks */,
+				E7953B19272E832A00477868 /* Pods_GifCollectionViewExamples.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,10 +275,12 @@
 				E74AD852272B69820007AF30 /* Frameworks */,
 				E74AD853272B69820007AF30 /* Resources */,
 				E4751C548705DF1D58BD792F /* [CP] Embed Pods Frameworks */,
+				E7953B20272E833100477868 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E7953B1F272E833100477868 /* PBXTargetDependency */,
 			);
 			name = GifCollectionViewExamples;
 			productName = GifCollectionViewExamples;
@@ -475,6 +501,11 @@
 			isa = PBXTargetDependency;
 			target = E74AD836272B688D0007AF30 /* GifCollectionView */;
 			targetProxy = E74AD843272B688D0007AF30 /* PBXContainerItemProxy */;
+		};
+		E7953B1F272E833100477868 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E74AD836272B688D0007AF30 /* GifCollectionView */;
+			targetProxy = E7953B1E272E833100477868 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
