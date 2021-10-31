@@ -50,7 +50,13 @@ class GifCollectionViewCell: UICollectionViewCell {
     
     public func setGifImage(url: URL?){
         guard let url = url else { return }
-        let loader = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.medium)
-        gifImageView.setGifFromURL(url, customLoader: loader)
+        if #available(iOS 13.0, *) {
+            let loader = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.medium)
+            gifImageView.setGifFromURL(url, customLoader: loader)
+        } else {
+            // Fallback on earlier versions
+            let loader = UIActivityIndicatorView.init(style: .white)
+            gifImageView.setGifFromURL(url, customLoader: loader)
+        }
     }
 }
