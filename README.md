@@ -1,4 +1,5 @@
 # GifCollectionView
+
 ![CocoaPods](https://img.shields.io/cocoapods/v/GifCollectionView.svg)
 
 Drop in GIF Collection View. Uses Tenor as default GIFs provider. This will allow you to easily integrate GIF image search into your app or you can use this as a GIF keyboard for your messaging needs. 
