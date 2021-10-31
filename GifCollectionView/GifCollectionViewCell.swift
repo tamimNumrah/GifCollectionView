@@ -19,25 +19,15 @@ class GifCollectionViewCell: UICollectionViewCell {
     }
     
     let gifImageView: UIImageView = {
-        let view = UIImageView()//SDAnimatedImageView()
+        let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        //view.backgroundColor = UIColor.blue
         return view
     }()
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        //gifImageView.stopAnimatingGif()
-        //SwiftyGifManager.defaultManager.deleteImageView(gifImageView)
-        //gifImageView.image = nil
+        self.gifImageView.clear()
     }
-
-//    let activityIndicator: UIActivityIndicatorView = {
-//        let indicator = UIActivityIndicatorView()
-//        indicator.hidesWhenStopped = true
-//        indicator.translatesAutoresizingMaskIntoConstraints = false
-//        return indicator
-//    }()
     
     private func addViews() {
         addSubview(gifImageView)

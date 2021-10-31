@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         self.view.addSubview(gifCollectionView)
         gifCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            gifCollectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 300),
+            gifCollectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             gifCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             gifCollectionView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             gifCollectionView.rightAnchor.constraint(equalTo: self.view.rightAnchor)

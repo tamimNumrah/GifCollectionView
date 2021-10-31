@@ -110,7 +110,6 @@ extension GifCollectionView: UISearchBarDelegate {
     
     public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         //searchActive = false;
-        startLoadingGifs(nil)
     }
     
     public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -120,6 +119,7 @@ extension GifCollectionView: UISearchBarDelegate {
     
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //searchActive = false;
+        self.reloadGifs(searchBar)
         searchBar.resignFirstResponder()
     }
     
