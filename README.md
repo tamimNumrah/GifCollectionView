@@ -36,13 +36,14 @@ gifCollectionView = GifCollectionView.init()
 gifCollectionView.delegate = self
 view.addSubview(gifCollectionView)
 ```
+Load Gifs using Tenor
 
 ```swift
 gifCollectionView.setTenorApiKey(apiKey: "YOUR_TENOR_API_KEY")
 gifCollectionView.startLoadingGifs()
 ```
 
-Or
+Or you can supply your own Gifs provider by conforming to GifProvider protocol
 
 ```swift
 gifCollectionView.replaceProvider(<#T##provider: GifProvider##GifProvider#>)
