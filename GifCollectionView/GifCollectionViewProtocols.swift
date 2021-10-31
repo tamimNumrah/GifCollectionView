@@ -5,11 +5,25 @@
 //  Created by Tamim on 30/10/21.
 //
 
+import SwiftyJSON
 import UIKit
 
 protocol GifCollectionViewCustomLayoutDelegate: AnyObject {
     func collectionView(_ collectionView: UICollectionView, heightForCellAtIndexPath indexPath:IndexPath, contentWidth width: CGFloat) -> CGFloat
     func cellPaddingFor(_ collectionView: UICollectionView) -> CGFloat
+}
+
+protocol TenorEndpoint {
+    associatedtype json
+    associatedtype response
+    
+    /// Client key for privileged API access
+    var key: String { get }
+    /// Tenor endpoint type
+    var endpointType: TenorEndpointType { get }
+    /// Generated URL
+    var url: URL { get }
+    func responseExtractor(_: json) -> response
 }
 
 public protocol GifCollectionViewDelegate: AnyObject {

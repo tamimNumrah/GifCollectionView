@@ -22,7 +22,7 @@ struct TenorURLGenerator {
     }
     
     func tenorGifEndpoint(text: String?, position: String?) -> URL{
-        var tenorRequest: TenorRequest = .trending
+        var tenorRequest: TenorEndpointType = .trending
         var baseURL = TenorBaseURL
         if let searchText = text {
             tenorRequest = .search
@@ -42,7 +42,7 @@ struct TenorURLGenerator {
     
     func registerShareEndpoint(gifID: String, searchText: String) -> URL{
         var baseURL = TenorBaseURL
-        baseURL += "\(TenorRequest.registerShare.rawValue)?"
+        baseURL += "\(TenorEndpointType.registershare.rawValue)?"
         baseURL += "key=\(apiKey)&anon_id=\(anonymousId)&q=\(searchText)&locale=\(locale)"
 
         return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
