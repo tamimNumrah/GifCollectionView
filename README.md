@@ -36,7 +36,7 @@ end
 import GifCollectionView
 ```
 
-Simply initialize `GifCollectionView` as any other view and provide appropriate constraints. 
+Simply initialize `GifCollectionView` like any other view and provide appropriate constraints. 
 
 ```swift
 gifCollectionView = GifCollectionView.init()
