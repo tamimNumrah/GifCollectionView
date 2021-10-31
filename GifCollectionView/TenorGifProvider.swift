@@ -44,10 +44,19 @@ final class TenorGifProvider: GifProvider {
         } else {
             self.isSearching = false
             if trendingGifs.isEmpty {
-                self.apiManager.loadGifs(searchText: nil, position: nil) { [weak self] success, gifs, searchText, position in
+//                self.apiManager.loadGifs(searchText: nil, position: nil) { [weak self] success, gifs, searchText, position in
+//                    if success {
+//                        self?.lastPositionForTrending = position
+//                        self?.trendingGifs = gifs ?? [TenorGifItem]()
+//                    }
+//                    completion(success)
+//                }
+                let trending = TenorEndpointTrending.init(key: self.apiKey!)
+                self.apiManager.makeTenorWebRequest(endpoint: trending) { [weak self] success, response in
+                    guard let self = self else { return }
                     if success {
-                        self?.lastPositionForTrending = position
-                        self?.trendingGifs = gifs ?? [TenorGifItem]()
+                        self.lastPositionForTrending = response?.next
+                        self.trendingGifs = response?.results ?? [TenorGifItem]()
                     }
                     completion(success)
                 }
@@ -100,7 +109,7 @@ final class TenorGifProvider: GifProvider {
     }
     
     func registerShare(gifItem: GifItem) {
-        
+        let share = TenorEndpointRegisterShare.init(key: self.apiKey!, id: gifItem.gifID)
     }
     
     func numberOfItems() -> Int {

@@ -18,7 +18,24 @@ struct TenorEndpointSearch: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .search
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?q=\(q)&key=\(key)&locale=\(locale)&contentfilter=\(contentFilter.rawValue)&ar_range=\(ar_range.rawValue)&limit=\(limit)"
+        
+        if let media_filter = media_filter {
+            baseURL += "&media_filter=\(media_filter)"
+        }
+        
+        if let pos = pos {
+            baseURL += "&pos=\(pos)"
+        }
+        
+        if let anon_id = anon_id {
+            baseURL += "&anon_id=\(anon_id)"
+        }
+        
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// A search string
     var q: String
@@ -29,14 +46,14 @@ struct TenorEndpointSearch: TenorEndpoint {
     /// Specify the content safety filter level
     var contentFilter: TenorContentFilter = .off
     
-    /// Reduce the Number of GIF formats returned in the GIF_OBJECT list.
-    var media_filter: String? = nil
-    
     /// Filter the response GIF_OBJECT list to only include GIFs with aspect ratios that fit with in the selected range.
     var ar_range: TenorAspectRatio = .all
     
     /// Fetch up to a specified number of results (max: 50).
     var limit: Int = 20
+    
+    /// Reduce the Number of GIF formats returned in the GIF_OBJECT list.
+    var media_filter: String? = nil
     
     /// Get results starting at position "value". Use a non-zero "next" value returned by API results to get the next set of results. pos is not an index and may be an integer, float, or string
     var pos: String? = nil
@@ -67,7 +84,24 @@ struct TenorEndpointTrending: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .trending
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?key=\(key)&locale=\(locale)&contentfilter=\(contentFilter.rawValue)&ar_range=\(ar_range.rawValue)&limit=\(limit)"
+        
+        if let media_filter = media_filter {
+            baseURL += "&media_filter=\(media_filter)"
+        }
+        
+        if let pos = pos {
+            baseURL += "&pos=\(pos)"
+        }
+        
+        if let anon_id = anon_id {
+            baseURL += "&anon_id=\(anon_id)"
+        }
+        
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// Specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code
     var locale: String = "en_US"
@@ -114,7 +148,16 @@ struct TenorEndpointCategories: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .categories
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?key=\(key)&locale=\(locale)&contentfilter=\(contentFilter.rawValue)&type=\(type.rawValue)"
+        
+        if let anon_id = anon_id {
+            baseURL += "&anon_id=\(anon_id)"
+        }
+        
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// Specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code
     var locale: String = "en_US"
@@ -148,7 +191,16 @@ struct TenorEndpointSearchSuggestions: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .search_suggestions
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?q=\(q)&key=\(key)&locale=\(locale)&limit=\(limit)"
+        
+        if let anon_id = anon_id {
+            baseURL += "&anon_id=\(anon_id)"
+        }
+        
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// A search string
     var q: String
@@ -182,7 +234,16 @@ struct TenorEndpointAutocomplete: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .autocomplete
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?q=\(q)&key=\(key)&locale=\(locale)&limit=\(limit)"
+        
+        if let anon_id = anon_id {
+            baseURL += "&anon_id=\(anon_id)"
+        }
+        
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// A search string
     var q: String
@@ -216,7 +277,16 @@ struct TenorEndpointTrendingSearchTerms: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .trending_terms
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?key=\(key)&locale=\(locale)&limit=\(limit)"
+        
+        if let anon_id = anon_id {
+            baseURL += "&anon_id=\(anon_id)"
+        }
+        
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// Specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code
     var locale: String = "en_US"
@@ -247,7 +317,20 @@ struct TenorEndpointRegisterShare: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .registershare
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?id=\(id)&key=\(key)&locale=\(locale)"
+        
+        if let q = q {
+            baseURL += "&q=\(q)"
+        }
+        
+        if let anon_id = anon_id {
+            baseURL += "&anon_id=\(anon_id)"
+        }
+        
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// the “id” of a GIF_OBJECT
     var id: String
@@ -278,7 +361,24 @@ struct TenorEndpointGIFs: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .gifs
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?ids=\(ids)&key=\(key)&limit=\(limit)"
+        
+        if let media_filter = media_filter {
+            baseURL += "&media_filter=\(media_filter)"
+        }
+        
+        if let pos = pos {
+            baseURL += "&pos=\(pos)"
+        }
+        
+        if let anon_id = anon_id {
+            baseURL += "&anon_id=\(anon_id)"
+        }
+        
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// a comma separated list of GIF IDs (max: 50)
     var ids: String
@@ -318,7 +418,24 @@ struct TenorEndpointRandomSearch: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .random
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?q=\(q)&key=\(key)&locale=\(locale)&contentfilter=\(contentFilter.rawValue)&ar_range=\(ar_range.rawValue)&limit=\(limit)"
+        
+        if let media_filter = media_filter {
+            baseURL += "&media_filter=\(media_filter)"
+        }
+        
+        if let pos = pos {
+            baseURL += "&pos=\(pos)"
+        }
+        
+        if let anon_id = anon_id {
+            baseURL += "&anon_id=\(anon_id)"
+        }
+        
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// A search string
     var q: String
@@ -368,7 +485,11 @@ struct TenorEndpointAnonymousID: TenorEndpoint {
     
     var endpointType: TenorEndpointType = .anonid
     
-    var url: URL
+    func url() -> URL {
+        var baseURL = TenorBaseURL + endpointType.rawValue
+        baseURL += "?key=\(key)"
+        return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
+    }
     
     /// an anonymous id used to represent a user. This allows for tracking without the use of personally identifiable information
     func responseExtractor(_ json: JSON) -> String {

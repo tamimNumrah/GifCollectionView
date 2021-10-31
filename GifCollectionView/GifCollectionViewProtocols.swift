@@ -22,7 +22,7 @@ protocol TenorEndpoint {
     /// Tenor endpoint type
     var endpointType: TenorEndpointType { get }
     /// Generated URL
-    var url: URL { get }
+    func url() -> URL
     func responseExtractor(_: json) -> response
 }
 

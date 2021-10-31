@@ -41,6 +41,18 @@ class TenorAPIManager {
         }
     }
     
+    func makeTenorWebRequest<T: TenorEndpoint>(endpoint: T, completionHandler: @escaping (_ success: Bool, _ response: T.response?) -> ()) {
+        let loadGifsRequest = URLRequest.init(url: endpoint.url())
+        self.makeWebRequest(urlRequest: loadGifsRequest) { success, jsonObject in
+            if success, let json = jsonObject as? T.json{
+                let response = endpoint.responseExtractor(json)
+                completionHandler(success, response)
+            } else {
+                completionHandler(success, nil)
+            }
+        }
+    }
+    
     
 }
 
