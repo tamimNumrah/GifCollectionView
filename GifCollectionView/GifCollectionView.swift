@@ -10,9 +10,11 @@ import UIKit
 
 public final class GifCollectionView: UIView {
     var collectionView: UICollectionView!
+    var searchBar: UISearchBar!
     public weak var delegate: GifCollectionViewDelegate?
     private var collectionViewLayout: GifCollectionViewCustomLayout!
     private var provider: GifProvider = TenorGifProvider.init()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,14 +43,23 @@ extension GifCollectionView { //UIView
         collectionViewLayout = GifCollectionViewCustomLayout.init()
         collectionView = UICollectionView.init(frame: self.bounds, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.keyboardDismissMode = .onDrag
         self.addSubview(collectionView)
+        searchBar = UISearchBar.init()
+        searchBar.placeholder = "Search Tenor"
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.delegate = self
+        self.addSubview(searchBar)
         setupConstraints()
         setupCollectionView()
     }
     
     fileprivate func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
+            searchBar.topAnchor.constraint(equalTo: self.topAnchor),
+            searchBar.bottomAnchor.constraint(equalTo: collectionView.topAnchor),
+            searchBar.leftAnchor.constraint(equalTo: self.leftAnchor),
+            searchBar.rightAnchor.constraint(equalTo: self.rightAnchor),
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             collectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: self.rightAnchor)
@@ -92,7 +103,38 @@ extension GifCollectionView { //UIView
         }
     }
 }
-
+extension GifCollectionView: UISearchBarDelegate {
+    public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        ///searchActive = true;
+    }
+    
+    public func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        //searchActive = false;
+        startLoadingGifs(nil)
+    }
+    
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        //searchActive = false;
+        startLoadingGifs(nil)
+    }
+    
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //searchActive = false;
+        searchBar.resignFirstResponder()
+    }
+    
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reloadGifs(_:)), object: searchBar)
+        perform(#selector(self.reloadGifs(_:)), with: searchBar, afterDelay: 0.75)
+    }
+    @objc func reloadGifs(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
+            startLoadingGifs(nil)
+            return
+        }
+        startLoadingGifs(query)
+    }
+}
 extension GifCollectionView: GifCollectionViewCustomLayoutDelegate {
     func cellPaddingFor(_ collectionView: UICollectionView) -> CGFloat {
         return 1
