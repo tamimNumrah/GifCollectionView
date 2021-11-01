@@ -40,7 +40,7 @@ class ViewController: UIViewController {
 
 extension ViewController: GifCollectionViewDelegate {
     func didSelectGifItem(gifItem: GifItem) {
-        print("didSelectGifItem \(gifItem.gifID)")
+        print("didSelectGifItem \(gifItem.gifID) URL \(gifItem.gifItemURL)")
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

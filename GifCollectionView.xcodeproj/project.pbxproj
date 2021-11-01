@@ -31,7 +31,6 @@
 		E7A3929F272D928F00A2496F /* TenorGifItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3929E272D928F00A2496F /* TenorGifItem.swift */; };
 		E7A392A1272DB77500A2496F /* TenorAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A392A0272DB77500A2496F /* TenorAPIManager.swift */; };
 		E7A392A3272DCE6900A2496F /* TenorEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A392A2272DCE6900A2496F /* TenorEnums.swift */; };
-		E7A392A5272DCE7F00A2496F /* TenorURLGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A392A4272DCE7F00A2496F /* TenorURLGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +96,6 @@
 		E7A3929E272D928F00A2496F /* TenorGifItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenorGifItem.swift; sourceTree = "<group>"; };
 		E7A392A0272DB77500A2496F /* TenorAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenorAPIManager.swift; sourceTree = "<group>"; };
 		E7A392A2272DCE6900A2496F /* TenorEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenorEnums.swift; sourceTree = "<group>"; };
-		E7A392A4272DCE7F00A2496F /* TenorURLGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenorURLGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,7 +184,6 @@
 				E79EB8B9272EF59500E6E456 /* TenorEndpoints.swift */,
 				E7A3929C272D923500A2496F /* TenorGifProvider.swift */,
 				E7A392A0272DB77500A2496F /* TenorAPIManager.swift */,
-				E7A392A4272DCE7F00A2496F /* TenorURLGenerator.swift */,
 				E7A392A2272DCE6900A2496F /* TenorEnums.swift */,
 				E7A3929E272D928F00A2496F /* TenorGifItem.swift */,
 				E7A39298272D7DB600A2496F /* GifCollectionViewCustomLayout.swift */,
@@ -470,7 +467,6 @@
 				E7A3929F272D928F00A2496F /* TenorGifItem.swift in Sources */,
 				E7A3929B272D809000A2496F /* GifCollectionViewProtocols.swift in Sources */,
 				E7A3929D272D923500A2496F /* TenorGifProvider.swift in Sources */,
-				E7A392A5272DCE7F00A2496F /* TenorURLGenerator.swift in Sources */,
 				E7A39297272D7D1C00A2496F /* GifCollectionViewCell.swift in Sources */,
 				E7A392A1272DB77500A2496F /* TenorAPIManager.swift in Sources */,
 				E79EB8BA272EF59500E6E456 /* TenorEndpoints.swift in Sources */,

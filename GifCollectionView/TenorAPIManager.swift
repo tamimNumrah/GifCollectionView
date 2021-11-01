@@ -13,34 +13,8 @@ public typealias anonymousIdCompletionHanlder = (_ success: Bool, _ anonymousID:
 
 let TenorBaseURL = "https://g.tenor.com/v1/"
 let TenorAnynymousIDUserDefaultKey = "TenorAnynymousIDUserDefaultKey"
-let TenorResponseAnonIdJsonKey = "anonId"
 
 class TenorAPIManager {
-    private var tenorURLGenerator: TenorURLGenerator
-    
-    init(tenorApiKey: String) {
-        tenorURLGenerator = TenorURLGenerator.init(apiKey: tenorApiKey)
-        setAnonymousId()
-    }
-    
-    func loadGifs(searchText: String?, position: String?, completionHandler: @escaping loadGifsRequestCompletion) {
-        let loadGifsRequest = URLRequest.init(url: tenorURLGenerator.tenorGifEndpoint(text: searchText, position: position))
-        self.makeWebRequest(urlRequest: loadGifsRequest) { success, jsonObject in
-            if success, let json = jsonObject{
-                let position = json["next"].stringValue
-                var gifItems = [TenorGifItem]()
-                if let results = json["results"].array {
-                    gifItems = TenorGifItem.gifsFromResponse(jsonData: results)
-                    
-                }
-                completionHandler(true, gifItems, searchText, position)
-                
-            } else {
-                completionHandler(false, nil, searchText, position)
-            }
-        }
-    }
-    
     func makeTenorWebRequest<T: TenorEndpoint>(endpoint: T, completionHandler: @escaping (_ success: Bool, _ response: T.response?) -> ()) {
         let loadGifsRequest = URLRequest.init(url: endpoint.url())
         self.makeWebRequest(urlRequest: loadGifsRequest) { success, jsonObject in
@@ -52,39 +26,9 @@ class TenorAPIManager {
             }
         }
     }
-    
-    
 }
 
 extension TenorAPIManager {
-    fileprivate func setAnonymousId() {
-        if let anonymousId = UserDefaults.standard.string(forKey: TenorAnynymousIDUserDefaultKey) {
-            tenorURLGenerator.anonymousId = anonymousId
-        } else {
-            self.anonymousIDRequest { [weak self] success, anonymousID in
-                if let anonId = anonymousID {
-                    UserDefaults.standard.set(anonId, forKey: TenorAnynymousIDUserDefaultKey)
-                    UserDefaults.standard.synchronize()
-                    self?.tenorURLGenerator.anonymousId = anonId
-                } else {
-                    fatalError("Anonymous Id could not be retrieved") //TODO
-                }
-            }
-        }
-    }
-    
-    fileprivate func anonymousIDRequest(completionHandler: anonymousIdCompletionHanlder?){
-        let anonymousIDRequest = URLRequest(url: tenorURLGenerator.TenorAnonIdEndpoint())
-        makeWebRequest(urlRequest: anonymousIDRequest, completionHandler: { success, json in
-            if success, let json = json{
-                let anonId = json[TenorResponseAnonIdJsonKey].string
-                completionHandler?(true, anonId)
-            }else{
-                completionHandler?(false, nil)
-            }
-        })
-    }
-    
     fileprivate func makeWebRequest(urlRequest: URLRequest, completionHandler: @escaping (_ success: Bool, _ jsonObject: JSON?) -> ()) {
         let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             do {
