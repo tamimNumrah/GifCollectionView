@@ -9,16 +9,16 @@ import Foundation
 import SwiftyJSON
 
 /// Get a json object containing a list of the most relevant GIFs for a given search term(s), category(ies), emoji(s), or any combination thereof.
-struct TenorEndpointSearch: TenorEndpoint {
-    typealias json = JSON
+public struct TenorEndpointSearch: TenorEndpoint {
+    public typealias json = JSON
     
-    typealias response = (next: String, results: [TenorGifItem])
+    public typealias response = (next: String, results: [TenorGifItem])
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .search
+    public var endpointType: TenorEndpointType = .search
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?q=\(q)&key=\(key)&locale=\(locale)&contentfilter=\(contentFilter.rawValue)&ar_range=\(ar_range.rawValue)&limit=\(limit)"
         
@@ -63,7 +63,7 @@ struct TenorEndpointSearch: TenorEndpoint {
     
     /// next - a position identifier to use with the next API query to retrieve the next set of results, or 0 if there are no further results.
     /// results - an array of GIF_OBJECTS containing the most relevant GIFs for the requested search term - Sorted by relevancy Rank
-    func responseExtractor(_ json: JSON) -> (next: String, results: [TenorGifItem]) {
+    public func responseExtractor(_ json: JSON) -> (next: String, results: [TenorGifItem]) {
         let position = json["next"].stringValue
         var gifItems = [TenorGifItem]()
         if let results = json["results"].array {
@@ -75,16 +75,16 @@ struct TenorEndpointSearch: TenorEndpoint {
 }
 
 /// Get a json object containing a list of the current global trending GIFs. The trending stream is updated regularly throughout the day.
-struct TenorEndpointTrending: TenorEndpoint {
-    typealias json = JSON
+public struct TenorEndpointTrending: TenorEndpoint {
+    public typealias json = JSON
     
-    typealias response = (next: String, results: [TenorGifItem])
+    public typealias response = (next: String, results: [TenorGifItem])
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .trending
+    public var endpointType: TenorEndpointType = .trending
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?key=\(key)&locale=\(locale)&contentfilter=\(contentFilter.rawValue)&ar_range=\(ar_range.rawValue)&limit=\(limit)"
         
@@ -126,7 +126,7 @@ struct TenorEndpointTrending: TenorEndpoint {
     
     /// next - a position identifier to use with the next API query to retrieve the next set of results, or 0 if there are no further results.
     /// results - an array of Trending GIF_OBJECTS sorted by Trending Rank
-    func responseExtractor(_ json: JSON) -> (next: String, results: [TenorGifItem]) {
+    public func responseExtractor(_ json: JSON) -> (next: String, results: [TenorGifItem]) {
         let position = json["next"].stringValue
         var gifItems = [TenorGifItem]()
         if let results = json["results"].array {
@@ -138,17 +138,17 @@ struct TenorEndpointTrending: TenorEndpoint {
 }
 
 /// Get a json object containing a list of GIF categories associated with the provided type. Each category will include a corresponding search URL to be used if the user clicks on the category. The search URL will include the apikey, anonymous id, and locale that were used on the original call to the categories endpoint.
-struct TenorEndpointCategories: TenorEndpoint {
+public struct TenorEndpointCategories: TenorEndpoint {
     
-    typealias json = JSON
+    public typealias json = JSON
     
-    typealias response = [JSON]
+    public typealias response = [JSON]
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .categories
+    public var endpointType: TenorEndpointType = .categories
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?key=\(key)&locale=\(locale)&contentfilter=\(contentFilter.rawValue)&type=\(type.rawValue)"
         
@@ -172,7 +172,7 @@ struct TenorEndpointCategories: TenorEndpoint {
     var anon_id: String? = nil
     
     /// an array of CATEGORY_OBJECTS where the “name” field has been translated to the passed in locale language.
-    func responseExtractor(_ json: JSON) -> [JSON] {
+    public func responseExtractor(_ json: JSON) -> [JSON] {
         if let tags = json["tags"].array {
             return tags
         }
@@ -181,17 +181,17 @@ struct TenorEndpointCategories: TenorEndpoint {
 }
 
 /// Get a json object containing a list of alternative search terms given a search term.
-struct TenorEndpointSearchSuggestions: TenorEndpoint {
+public struct TenorEndpointSearchSuggestions: TenorEndpoint {
     
-    typealias json = JSON
+    public typealias json = JSON
     
-    typealias response = [String]
+    public typealias response = [String]
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .search_suggestions
+    public var endpointType: TenorEndpointType = .search_suggestions
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?q=\(q)&key=\(key)&locale=\(locale)&limit=\(limit)"
         
@@ -215,7 +215,7 @@ struct TenorEndpointSearchSuggestions: TenorEndpoint {
     var anon_id: String? = nil
     
     /// An array of suggested search terms.
-    func responseExtractor(_ json: JSON) -> [String] {
+    public func responseExtractor(_ json: JSON) -> [String] {
         if let results = json["results"].array as? [String] {
             return results
         }
@@ -224,17 +224,17 @@ struct TenorEndpointSearchSuggestions: TenorEndpoint {
 }
 
 /// Get a json object containing a list of completed search terms given a partial search term. The list is sorted by Tenor’s AI and the number of results will decrease as Tenor’s AI becomes more certain.
-struct TenorEndpointAutocomplete: TenorEndpoint {
+public struct TenorEndpointAutocomplete: TenorEndpoint {
     
-    typealias json = JSON
+    public typealias json = JSON
     
-    typealias response = [String]
+    public typealias response = [String]
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .autocomplete
+    public var endpointType: TenorEndpointType = .autocomplete
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?q=\(q)&key=\(key)&locale=\(locale)&limit=\(limit)"
         
@@ -258,7 +258,7 @@ struct TenorEndpointAutocomplete: TenorEndpoint {
     var anon_id: String? = nil
     
     /// An array of suggested search terms.
-    func responseExtractor(_ json: JSON) -> [String] {
+    public func responseExtractor(_ json: JSON) -> [String] {
         if let results = json["results"].array as? [String] {
             return results
         }
@@ -267,17 +267,17 @@ struct TenorEndpointAutocomplete: TenorEndpoint {
 }
 
 /// Get a json object containing a list of the current trending search terms. The list is updated Hourly by Tenor’s AI.
-struct TenorEndpointTrendingSearchTerms: TenorEndpoint {
+public struct TenorEndpointTrendingSearchTerms: TenorEndpoint {
     
-    typealias json = JSON
+    public typealias json = JSON
     
-    typealias response = [String]
+    public typealias response = [String]
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .trending_terms
+    public var endpointType: TenorEndpointType = .trending_terms
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?key=\(key)&locale=\(locale)&limit=\(limit)"
         
@@ -298,7 +298,7 @@ struct TenorEndpointTrendingSearchTerms: TenorEndpoint {
     var anon_id: String? = nil
     
     /// An array of suggested search terms. Sorted by Trending Rank.
-    func responseExtractor(_ json: JSON) -> [String] {
+    public func responseExtractor(_ json: JSON) -> [String] {
         if let results = json["results"].array as? [String] {
             return results
         }
@@ -307,17 +307,17 @@ struct TenorEndpointTrendingSearchTerms: TenorEndpoint {
 }
 
 /// Register a user’s sharing of a GIF.
-struct TenorEndpointRegisterShare: TenorEndpoint {
+public struct TenorEndpointRegisterShare: TenorEndpoint {
     
-    typealias json = JSON
+    public typealias json = JSON
     
-    typealias response = String
+    public typealias response = String
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .registershare
+    public var endpointType: TenorEndpointType = .registershare
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?id=\(id)&key=\(key)&locale=\(locale)"
         
@@ -345,23 +345,23 @@ struct TenorEndpointRegisterShare: TenorEndpoint {
     var anon_id: String? = nil
     
     /// set to “ok” if share registration was successful
-    func responseExtractor(_ json: JSON) -> String {
+    public func responseExtractor(_ json: JSON) -> String {
         return json["status"].stringValue
     }
 }
 
 /// Get the GIF(s) for the corresponding id(s)
-struct TenorEndpointGIFs: TenorEndpoint {
+public struct TenorEndpointGIFs: TenorEndpoint {
     
-    typealias json = JSON
+    public typealias json = JSON
     
-    typealias response = (next: String, results: [TenorGifItem])
+    public typealias response = (next: String, results: [TenorGifItem])
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .gifs
+    public var endpointType: TenorEndpointType = .gifs
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?ids=\(ids)&key=\(key)&limit=\(limit)"
         
@@ -397,7 +397,7 @@ struct TenorEndpointGIFs: TenorEndpoint {
     
     /// next - a position identifier to use with the next API query to retrieve the next set of results, or 0 if there are no further results.
     /// results - an array of GIF_OBJECTS corresponding to the passed in GIF id list
-    func responseExtractor(_ json: JSON) -> (next: String, results: [TenorGifItem]) {
+    public func responseExtractor(_ json: JSON) -> (next: String, results: [TenorGifItem]) {
         let position = json["next"].stringValue
         var gifItems = [TenorGifItem]()
         if let results = json["results"].array {
@@ -409,16 +409,16 @@ struct TenorEndpointGIFs: TenorEndpoint {
 }
 
 /// Get a randomized list of GIFs for a given search term. This differs from the search endpoint which returns a rank ordered list of GIFs for a given search term.
-struct TenorEndpointRandomSearch: TenorEndpoint {
-    typealias json = JSON
+public struct TenorEndpointRandomSearch: TenorEndpoint {
+    public typealias json = JSON
     
-    typealias response = (next: String, results: [TenorGifItem])
+    public typealias response = (next: String, results: [TenorGifItem])
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .random
+    public var endpointType: TenorEndpointType = .random
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?q=\(q)&key=\(key)&locale=\(locale)&contentfilter=\(contentFilter.rawValue)&ar_range=\(ar_range.rawValue)&limit=\(limit)"
         
@@ -463,7 +463,7 @@ struct TenorEndpointRandomSearch: TenorEndpoint {
     
     /// next - a position identifier to use with the next API query to retrieve the next set of results, or 0 if there are no further results.
     /// results - an array of GIF_OBJECTS containing the most relevant GIFs for the requested search term - Sorted by relevancy Rank
-    func responseExtractor(_ json: JSON) -> (next: String, results: [TenorGifItem]) {
+    public func responseExtractor(_ json: JSON) -> (next: String, results: [TenorGifItem]) {
         let position = json["next"].stringValue
         var gifItems = [TenorGifItem]()
         if let results = json["results"].array {
@@ -475,24 +475,24 @@ struct TenorEndpointRandomSearch: TenorEndpoint {
 }
 
 /// Get an anonymous ID for a new user. Store the ID in the client’s cache for use on any additional API calls made by the user, either in this session or any future sessions.
-struct TenorEndpointAnonymousID: TenorEndpoint {
+public struct TenorEndpointAnonymousID: TenorEndpoint {
     
-    typealias json = JSON
+    public typealias json = JSON
     
-    typealias response = String
+    public typealias response = String
     
-    var key: String
+    public var key: String
     
-    var endpointType: TenorEndpointType = .anonid
+    public var endpointType: TenorEndpointType = .anonid
     
-    func url() -> URL {
+    public func url() -> URL {
         var baseURL = TenorBaseURL + endpointType.rawValue
         baseURL += "?key=\(key)"
         return URL(string: baseURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
     }
     
     /// an anonymous id used to represent a user. This allows for tracking without the use of personally identifiable information
-    func responseExtractor(_ json: JSON) -> String {
+    public func responseExtractor(_ json: JSON) -> String {
         return json["anon_id"].stringValue
     }
 }

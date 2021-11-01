@@ -8,7 +8,7 @@
 import Foundation
 
 /// Tenor Endpoints
-enum TenorEndpointType: String {
+public enum TenorEndpointType: String {
     /// Search - Get a json object containing a list of the most relevant GIFs for a given search term(s), category(ies), emoji(s), or any combination thereof.
     case search = "search"
     
@@ -41,7 +41,7 @@ enum TenorEndpointType: String {
 }
 
 /// Specify the content safety filter level
-enum TenorContentFilter: String {
+public enum TenorContentFilter: String {
     /// Content safety filter level off
     case off = "off"
     /// Content safety filter level low
@@ -53,7 +53,7 @@ enum TenorContentFilter: String {
 }
 
 /// Reduce the Number of GIF formats returned in the GIF_OBJECT list.
-enum TenorMediaFilter: String {
+public enum TenorMediaFilter: String {
     /// Will return tinygif, gif, and mp4
     case minimal = "minimal"
     /// Will return nanomp4, tinygif, tinymp4, gif, mp4, and nanogif
@@ -61,7 +61,7 @@ enum TenorMediaFilter: String {
 }
 
 /// Filter the response GIF_OBJECT list to only include GIFs with aspect ratios that fit with in the selected range.
-enum TenorAspectRatio: String {
+public enum TenorAspectRatio: String {
     /// No aspect ratio constraints
     case all = "all"
     /// Aspect ratio range from 0.42 to 2.36
@@ -71,7 +71,7 @@ enum TenorAspectRatio: String {
 }
 
 /// Determines the type of categories returned
-enum TenorCategoryType: String {
+public enum TenorCategoryType: String {
     /// Category type featured
     case featured = "featured"
     /// Category type emoji

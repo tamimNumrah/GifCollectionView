@@ -14,7 +14,7 @@ public typealias anonymousIdCompletionHanlder = (_ success: Bool, _ anonymousID:
 let TenorBaseURL = "https://g.tenor.com/v1/"
 let TenorAnynymousIDUserDefaultKey = "TenorAnynymousIDUserDefaultKey"
 
-class TenorAPIManager {
+public final class TenorAPIManager {
     func makeTenorWebRequest<T: TenorEndpoint>(endpoint: T, completionHandler: @escaping (_ success: Bool, _ response: T.response?) -> ()) {
         let loadGifsRequest = URLRequest.init(url: endpoint.url())
         self.makeWebRequest(urlRequest: loadGifsRequest) { success, jsonObject in

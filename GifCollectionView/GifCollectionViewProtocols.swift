@@ -13,7 +13,7 @@ protocol GifCollectionViewCustomLayoutDelegate: AnyObject {
     func cellPaddingFor(_ collectionView: UICollectionView) -> CGFloat
 }
 
-protocol TenorEndpoint {
+public protocol TenorEndpoint {
     associatedtype json
     associatedtype response
     
