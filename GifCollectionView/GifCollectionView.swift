@@ -81,6 +81,7 @@ extension GifCollectionView { //UIView
             guard let self = self else { return }
             DispatchQueue.main.async {
                 if success {
+                    self.collectionViewLayout?.purgeCache()
                     self.collectionView.performBatchUpdates {
                         self.collectionView.insertItems(at: insertItemsAt)
                     } completion: { success in
@@ -163,6 +164,9 @@ extension GifCollectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GifCollectionViewCell", for: indexPath) as! GifCollectionViewCell
         let gifItem = provider.gifItemAt(indexPath: indexPath)
         cell.setGifImage(url: gifItem.gifItemURL)
+        if indexPath.row == provider.numberOfItems() - 4 {
+            self.loadMoreGifs()
+        }
         return cell
 
     }
