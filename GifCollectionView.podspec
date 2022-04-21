@@ -136,6 +136,6 @@ Drop in Gif Collection View. Uses Tenor as GIFs provider.
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # spec.dependency "JSONKit", "~> 1.4"
   spec.dependency "SwiftyJSON", "~> 4.0"
-  spec.dependency "SwiftyGif"
+  spec.dependency "SDWebImage"
 
 end

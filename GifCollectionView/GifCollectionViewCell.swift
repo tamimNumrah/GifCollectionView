@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SwiftyGif
+import SDWebImage
 
 class GifCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
@@ -18,15 +18,15 @@ class GifCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let gifImageView: UIImageView = {
-        let view = UIImageView()
+    let gifImageView: SDAnimatedImageView = {
+        let view = SDAnimatedImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.gifImageView.clear()
+        self.gifImageView.stopAnimating()
     }
     
     private func addViews() {
@@ -40,13 +40,9 @@ class GifCollectionViewCell: UICollectionViewCell {
     
     public func setGifImage(url: URL?){
         guard let url = url else { return }
-        if #available(iOS 13.0, *) {
-            let loader = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.medium)
-            gifImageView.setGifFromURL(url, customLoader: loader)
-        } else {
-            // Fallback on earlier versions
-            let loader = UIActivityIndicatorView.init(style: .white)
-            gifImageView.setGifFromURL(url, customLoader: loader)
+        self.gifImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        self.gifImageView.sd_setImage(with: url) { image, error, cache, url in
+            
         }
     }
 }
